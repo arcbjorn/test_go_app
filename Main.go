@@ -194,4 +194,29 @@ func main() {
 	typee := reflect.TypeOf(Animal{})
 	field, _ := typee.FieldByName("Name")
 	fmt.Println(field.Tag)
+
+	// if/else statements
+
+	if true  {
+		fmt.Println("The test is true")
+	}
+
+	if pop, ok := statePopulations["Texas"]; ok {
+		fmt.Println(pop)
+	}
+
+	number := 50
+	guess := 105
+	if guess < number || guess < 50 {
+		fmt.Println("Too low")
+	} else if guess >= 1 && guess <= number {
+		fmt.Println("Too high")
+	}
+	if guess == number {
+		fmt.Println("Got it!")
+	}
+
+	fmt.Println(number <= guess, number >= guess, number != guess)
+
+	// short circuiting: as soon as 1 part of OR test is true, the code executed
 }
