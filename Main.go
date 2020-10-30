@@ -197,7 +197,7 @@ func main() {
 
 	// if/else statements
 
-	if true  {
+	if true {
 		fmt.Println("The test is true")
 	}
 
@@ -219,4 +219,94 @@ func main() {
 	fmt.Println(number <= guess, number >= guess, number != guess)
 
 	// short circuiting: as soon as 1 part of OR test is true, the code executed
+
+	// switch statement, no break
+
+	switch i := 2 + 3; i {
+	case 1, 5, 10:
+		fmt.Println("one, five or ten")
+	case 2, 4, 6:
+		fmt.Println("two, four or six")
+	default:
+		fmt.Println("another number")
+	}
+
+	// standalone case
+	y := 10
+	switch {
+	case y <= 10:
+		fmt.Println("<=10")
+		fallthrough
+	case y <= 20:
+		fmt.Println("<=20")
+	default:
+		fmt.Println(">20")
+	}
+
+	// type switch
+
+	var i interface{} = 1
+	switch i.(type) {
+	case int:
+		fmt.Println("i is an int")
+		// break statement
+		break
+		fmt.Println("this will not print")
+	case float64:
+		fmt.Println("i is an float64")
+	case string:
+		fmt.Println("i is an string")
+	case [3]int:
+		fmt.Println("i is [3]int")
+	default:
+		fmt.Println("i is another type")
+	}
+
+	// looping for statement
+	// first form of loop
+	// for init; test; incrementer {}
+	for i, j := 0, 0; i < 5; i, j = i+1, j+2 {
+		fmt.Println(i)
+		fmt.Println(j)
+	}
+
+	looper := 0
+	for ; looper < 5; looper++ {
+		fmt.Println(looper)
+	}
+	fmt.Println(looper + 5)
+
+	// second form of loop
+	// for test
+	z := 0
+	for z < 5 {
+		fmt.Println(z)
+		z++
+	}
+
+	// third form of loop
+	// for {}
+	// cb := 0
+	// for {
+	// 	fmt.Println(cb)
+	// 	if cb == 5 {
+	// 		break
+	// 	}
+	// }
+
+	// continue statement
+	for i := 0; i < 10; i++ {
+		if i%2 == 0 {
+			continue
+		}
+		fmt.Println(i)
+	}
+
+	// break {LABEL} in any place
+
+	// for range loop
+	rangee := []string{"first", "second", "third"}
+	for _, v := range rangee {
+		fmt.Println(v)
+	}
 }
