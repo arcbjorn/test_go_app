@@ -341,4 +341,44 @@ func main() {
 	// ans := aa / bb
 	// defer fmt.Println(ans)
 
+	// Pointers
+	var pointerVariable int = 42
+	// memory address (pointer to integer)
+	var copiedValue *int = &pointerVariable
+	fmt.Println(pointerVariable, *copiedValue)
+	pointerVariable = 27
+	fmt.Println(pointerVariable, *copiedValue)
+	*copiedValue = 1234
+	fmt.Println(pointerVariable, *copiedValue)
+
+	// Pointer arithmetic = NOT ALLOWED
+	// aaa := [3]int{1, 2, 3}
+	// bbb := &aaa[0]
+	// ccc := &aaa[1] - 4
+	// fmt.Printf("%v %p %p\n", aaa, bbb, ccc)
+
+	// pointer to struct
+	type myStruct struct {
+		foo int
+	}
+
+	// nil value. get/set
+	var ms *myStruct
+	fmt.Println(ms)
+	ms = new(myStruct)
+	(*ms).foo = 42
+	fmt.Println((*ms).foo) // 42
+
+	var ms2 *myStruct
+	ms2 = new(myStruct)
+	ms2.foo = 42
+	fmt.Println(ms2.foo) // 42
+
+	// slice points to the first variable of the underlying array
+	// map contains a pointer to the underlying data too
+	aaa1 := []int{1, 2, 3}
+	bbb1 := aaa1
+	fmt.Println(aaa1, bbb1)
+	aaa1[1] = 42
+	fmt.Println(aaa1, bbb1)
 }
