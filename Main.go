@@ -381,4 +381,84 @@ func main() {
 	fmt.Println(aaa1, bbb1)
 	aaa1[1] = 42
 	fmt.Println(aaa1, bbb1)
+
+	// functions
+	greeting := "Hello"
+	name := "Stacey"
+	sayGreeting(&greeting, &name)
+	fmt.Println(name)
+
+	sum := sum(1, 2, 3, 4, 5)
+	var msg string = "The sum is"
+	fmt.Println(msg, *sum)
+	sum2 := sumWithNamedReturn(1, 2, 3, 4, 5)
+	fmt.Println(msg, sum2)
+
+	ddd, err := devide(5.0, 0.1)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(ddd)
+
+	// Anonymous function
+	func() {
+		fmt.Println("Hello go")
+	}()
+
+	var function func() = func() {
+		fmt.Println("Hello go!")
+	}
+	function()
+
+	// Method = function in known context (inside a type)
+
+	ggg := greeter{
+		greeting: "Hello",
+		name:     "Go",
+	}
+	ggg.greet()
+
+}
+
+type greeter struct {
+	greeting string
+	name     string
+}
+
+func (g *greeter) greet() {
+	fmt.Println(g.greeting, g.name)
+}
+
+func sayGreeting(greeting, name *string) {
+	fmt.Println(*greeting, *name)
+	*name = "Ted"
+	fmt.Println(*greeting, *name)
+}
+
+func sum(values ...int) *int {
+	fmt.Println(values)
+	result := 0
+	for _, v := range values {
+		result += v
+	}
+	return &result
+}
+
+func sumWithNamedReturn(values ...int) (result int) {
+	fmt.Println(values)
+	for _, v := range values {
+		result += v
+	}
+	// promoting the variable from the local stack of the function
+	// to global heap (shared memory) of the computer
+	// (to use this pointer futher)
+	return
+}
+
+func devide(a, b float64) (float64, error) {
+	if b == 0.0 {
+		return 0.0, fmt.Errorf("Cannot devide by zero")
+	}
+	return a / b, nil
 }
