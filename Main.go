@@ -6,7 +6,9 @@ import (
 	"log"
 	"net/http"
 	"reflect"
+	"runtime"
 	"strconv"
+	"sync"
 )
 
 var (
@@ -435,6 +437,22 @@ func main() {
 	emptyInterface = "emptyInterface"
 	fmt.Println(emptyInterface)
 
+	// wait group for synchronizing multiple go routines together
+	var wg = sync.WaitGroup{}
+	// RWMutex = locker for data to protect it to use 1 goroutine
+	var mutax = sync.RWMutex{}
+	fmt.Println(mutax)
+	// Block the number of threads
+	runtime.GOMAXPROCS(-1)
+
+	// Go routines = green thread
+	var msgg = "Hello Go routines"
+	wg.Add(1)
+	go func(msg string) {
+		fmt.Println(msgg)
+		wg.Done()
+	}(msgg)
+	wg.Wait()
 }
 
 type Incrementer interface {
