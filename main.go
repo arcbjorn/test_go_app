@@ -446,13 +446,50 @@ func main() {
 	runtime.GOMAXPROCS(-1)
 
 	// Go routines = green thread
-	var msgg = "Hello Go routines"
-	wg.Add(1)
-	go func(msg string) {
-		fmt.Println(msgg)
+	// var msgg = "Hello Go routines"
+	// wg.Add(1)
+	// go func(msg string) {
+	// 	fmt.Println(msgg)
+	// 	wg.Done()
+	// }(msgg)
+	// wg.Wait()
+
+	// Channels = sync the data flow between go routines
+	// internal store to store 50 units of type int
+	channel := make(chan int, 50)
+	// for j := 0; j < 5; j++ {
+	wg.Add(2)
+	// recive only channel
+	go func(channel <-chan int) {
+		for {
+			if i, ok := <-channel; ok {
+				fmt.Println(i)
+			} else {
+				break
+			}
+		}
+		// for i := range channel {
+		// 	fmt.Println(i)
+		// }
+		// i := <-channel
+		// fmt.Println(i)
+		// i = <-channel
+		// fmt.Println(i)
 		wg.Done()
-	}(msgg)
+	}(channel)
+	// send only channel
+	go func(channel chan<- int) {
+		channel <- 42 // pass the copy of the variable
+		channel <- 27
+		close(channel)
+		wg.Done()
+	}(channel)
+	// }
 	wg.Wait()
+
+	// Select statement
+	// signal only channel
+	var doneChannel = make(chan struct{}) // no memory allocation
 }
 
 type Incrementer interface {
